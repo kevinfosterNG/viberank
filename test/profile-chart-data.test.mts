@@ -50,13 +50,24 @@ const result = buildProfileChartData([
       { modelName: "older-c", inputTokens: 0, outputTokens: 0, cacheCreationTokens: 0, cacheReadTokens: 0, cost: 3 },
     ],
   },
+  {
+    ...day,
+    date: "2026-09-23",
+    totalCost: 2.5,
+    modelsUsed: ["gpt-6.1-sol"],
+    modelBreakdowns: [
+      { modelName: "gpt-6.1-sol", inputTokens: 0, outputTokens: 0, cacheCreationTokens: 0, cacheReadTokens: 0, cost: 2.5 },
+    ],
+  },
 ]);
 
-assert.equal(result.modelKeys.length, 7, "models beyond the old top-five limit remain named");
+assert.equal(result.modelKeys.length, 8, "models beyond the old top-five limit remain named");
 assert.ok(result.modelKeys.includes("gpt-6-sol"));
 assert.ok(result.modelKeys.includes("gpt-6-luna"));
 assert.ok(result.modelKeys.includes("gpt-5.6-luna"));
+assert.ok(result.modelKeys.includes("gpt-6.1-sol"));
 assert.ok(!result.modelKeys.slice(0, 5).includes("gpt-6-luna"), "low-cost models stay named below the top five");
+assert.ok(!result.modelKeys.slice(0, 5).includes("gpt-6.1-sol"), "new models stay named below the top five");
 
 const byDate = new Map(result.stackedDaily.map((point) => [point.date, point]));
 const reportedDay = byDate.get("2026-09-28")!;
