@@ -28,7 +28,7 @@ export interface StackedDay {
 
 interface UsageChartProps {
   daily: StackedDay[];
-  /** Top models by total cost, in fixed color-assignment order (≤ 5). */
+  /** All models with cost data, in descending total-cost order. */
   modelKeys: string[];
 }
 
